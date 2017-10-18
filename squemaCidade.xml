@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<record>
+		<id>1</id>
+		<nome>SAO PAULO</nome>
+		<custo>0</custo>
+		<quantpop>12038175</quantpop>
+	</record>
+	<record>
+		<id>2</id>
+		<nome>JUNDIAI</nome>
+		<custo>1</custo>
+		<quantpop>405740</quantpop>
+	</record>
+</data-set>

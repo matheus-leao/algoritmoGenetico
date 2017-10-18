@@ -1,0 +1,8 @@
+Geracoes: 1000
+Tamanho populacao100
+Hora de inicio: 1508263398695
+
+
+Geracao: 99 MelhorSolucao: 1000000.0
+Geracao: 199 MelhorSolucao: 1000000.0
+Geracao: 299 MelhorSolucao: 1000000.0
