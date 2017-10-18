@@ -79,15 +79,15 @@ public class Main {
         
         do {
             
-                
+            Mutacao mutacao = new Mutacao();
             for (int i = 0; i < tamEspacoPopulacaoInicial; i++) {
-                Mutacao mutacao = new Mutacao();
+                
                 mutacao.setQuantNumSeraoAlterados(Mutacao.pctOcorrerMutacao(nGeracoes));
                 espacoSolucao.getEspacoSolucao().add(mutacao.Random(espacoSolucao.getEspacoSolucao().get(i)));
-                //espacoSolucao.getEspacoSolucao().add(Mutacao.fecharCT(espacoSolucao.getEspacoSolucao().get(i)));
+                
                 espacoSolucao.getEspacoSolucao().add(Mutacao.BitFlip(espacoSolucao.getEspacoSolucao().get(i)));
                 espacoSolucao.getEspacoSolucao().add(Mutacao.DoubleFlip(espacoSolucao.getEspacoSolucao().get(i)));
-                //espacoSolucao.getEspacoSolucao().add(Mutacao.fecharCTMenosPessoas(espacoSolucao.getEspacoSolucao().get(i)));
+                
             }
   //          }
             
