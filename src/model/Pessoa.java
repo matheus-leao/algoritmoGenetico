@@ -10,18 +10,18 @@ package model;
  * @author Math
  */
 public class Pessoa {
-    private String id;
+    private int id;
     private String nome;
     private String area;
     private String subArea;
     private String cargoAtual;
     private String municipio;
-    private String municipioId;
+    private int municipioId;
     private String estado;
-    private String estadoId;
-    private String nivel;
+    private int estadoId;
+    private int nivel;
 
-    public Pessoa(String id, String nome, String area, String subArea, String cargoAtual, String municipio, String municipioId, String estado, String estadoId, String nivel) {
+    public Pessoa(int id, String nome, String area, String subArea, String cargoAtual, String municipio, int municipioId, String estado, int estadoId, int nivel) {
         this.id = id;
         this.nome = nome;
         this.area = area;
@@ -34,11 +34,11 @@ public class Pessoa {
         this.nivel = nivel;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -82,11 +82,11 @@ public class Pessoa {
         this.municipio = municipio;
     }
 
-    public String getMunicipioId() {
+    public int getMunicipioId() {
         return municipioId;
     }
 
-    public void setMunicipioId(String municipioId) {
+    public void setMunicipioId(int municipioId) {
         this.municipioId = municipioId;
     }
 
@@ -98,19 +98,19 @@ public class Pessoa {
         this.estado = estado;
     }
 
-    public String getEstadoId() {
+    public int getEstadoId() {
         return estadoId;
     }
 
-    public void setEstadoId(String estadoId) {
+    public void setEstadoId(int estadoId) {
         this.estadoId = estadoId;
     }
 
-    public String getNivel() {
+    public int getNivel() {
         return nivel;
     }
 
-    public void setNivel(String nivel) {
+    public void setNivel(int nivel) {
         this.nivel = nivel;
     }
 }

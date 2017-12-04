@@ -1,4 +1,0 @@
-Geracoes: 10
-Tamanho populacao100
-Hora de inicio: 1508263261261
-

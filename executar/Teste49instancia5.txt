@@ -1,0 +1,19 @@
+Geracoes: 100000
+Tamanho populacao100
+Hora de inicio: 1510233626552
+Instancia: instancia5
+
+Geracao: 99 MelhorSolucao: 2323050
+Geracao: 199 MelhorSolucao: 2288775
+Geracao: 299 MelhorSolucao: 2232705
+Geracao: 399 MelhorSolucao: 2181900
+Geracao: 499 MelhorSolucao: 2121090
+Geracao: 599 MelhorSolucao: 2053755
+Geracao: 699 MelhorSolucao: 2003475
+Geracao: 799 MelhorSolucao: 1959510
+Geracao: 899 MelhorSolucao: 1921440
+Geracao: 999 MelhorSolucao: 1872210
+Geracao: 1099 MelhorSolucao: 1823820
+Geracao: 1199 MelhorSolucao: 1769430
+Geracao: 1299 MelhorSolucao: 1704195
+Geracao: 1399 MelhorSolucao: 1650855

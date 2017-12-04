@@ -5,9 +5,9 @@
  */
 package Genetico;
 
-import static Leitura.Importacao.listaCidades;
+import static Leitura.Importacao.listaCidadesCT;
 import static Leitura.Importacao.listaPessoas;
-import java.util.ArrayList;
+
 import java.util.Random;
 import model.Solucao;
 import static view.FatoresGeneticos.nGeracoesMax;
@@ -46,7 +46,7 @@ public class Mutacao {
         Solucao novaSolucao = new Solucao(solucao);
         Random numCt = new Random();
         for (int x = 0; x < (quantNumSeraoAlterados / 100) * listaPessoas.size(); x++) {
-            novaSolucao.getSolucao().set((numCt.nextInt(listaPessoas.size())), numCt.nextInt(listaCidades.size()));
+            novaSolucao.getSolucao().set((numCt.nextInt(listaPessoas.size())), numCt.nextInt(listaCidadesCT.size()));
         }
         novaSolucao.setCusto();
         return novaSolucao;
@@ -55,7 +55,7 @@ public class Mutacao {
     public static Solucao BitFlip(Solucao solucao) {
         Solucao novaSolucao = new Solucao(solucao);
         Random numCt = new Random();
-        novaSolucao.getSolucao().set((numCt.nextInt(listaPessoas.size())), numCt.nextInt(listaCidades.size()));
+        novaSolucao.getSolucao().set((numCt.nextInt(listaPessoas.size())), numCt.nextInt(listaCidadesCT.size()));
         novaSolucao.setCusto();
         return novaSolucao;
     }
@@ -64,7 +64,7 @@ public class Mutacao {
         Solucao novaSolucao = new Solucao(solucao);
         Random numCt = new Random();
         for (int x = 0; x < 2; x++) {
-            novaSolucao.getSolucao().set((numCt.nextInt(listaPessoas.size())), numCt.nextInt(listaCidades.size()));
+            novaSolucao.getSolucao().set((numCt.nextInt(listaPessoas.size())), numCt.nextInt(listaCidadesCT.size()));
         }
         novaSolucao.setCusto();
         return novaSolucao;
@@ -73,12 +73,12 @@ public class Mutacao {
     public static Solucao fecharCT(Solucao solucao) {
         Solucao novaSolucao = new Solucao(solucao);
         Random numCt = new Random();
-        int ctFechado = numCt.nextInt(listaCidades.size());
+        int ctFechado = numCt.nextInt(listaCidadesCT.size());
         for (int x = 0; x < solucao.getSolucao().size(); x++) {
             if (solucao.getSolucao().get(x).equals(ctFechado)) {
                 do {
-                    novaSolucao.getSolucao().set(x, numCt.nextInt(listaCidades.size()));
-                } while (numCt.nextInt(listaCidades.size()) == ctFechado);
+                    novaSolucao.getSolucao().set(x, numCt.nextInt(listaCidadesCT.size()));
+                } while (numCt.nextInt(listaCidadesCT.size()) == ctFechado);
             }
         }
         novaSolucao.setCusto();

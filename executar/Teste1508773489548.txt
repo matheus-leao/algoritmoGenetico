@@ -1,0 +1,34 @@
+Geracoes: 100000
+Tamanho populacao100
+Hora de inicio: 1508773489548
+
+
+Geracao: 99 MelhorSolucao: 4538315
+Geracao: 199 MelhorSolucao: 4310525
+Geracao: 299 MelhorSolucao: 4098785
+Geracao: 399 MelhorSolucao: 3882075
+Geracao: 499 MelhorSolucao: 3693375
+Geracao: 599 MelhorSolucao: 3494120
+Geracao: 699 MelhorSolucao: 3308655
+Geracao: 799 MelhorSolucao: 3147285
+Geracao: 899 MelhorSolucao: 2990515
+Geracao: 999 MelhorSolucao: 2824775
+Geracao: 1099 MelhorSolucao: 2683220
+Geracao: 1199 MelhorSolucao: 2528475
+Geracao: 1299 MelhorSolucao: 2395840
+Geracao: 1399 MelhorSolucao: 2277525
+Geracao: 1499 MelhorSolucao: 2163845
+Geracao: 1599 MelhorSolucao: 2061395
+Geracao: 1699 MelhorSolucao: 1972880
+Geracao: 1799 MelhorSolucao: 1900660
+Geracao: 1899 MelhorSolucao: 1815230
+Geracao: 1999 MelhorSolucao: 1742085
+Geracao: 2099 MelhorSolucao: 1684330
+Geracao: 2199 MelhorSolucao: 1631350
+Geracao: 2299 MelhorSolucao: 1584860
+Geracao: 2399 MelhorSolucao: 1539210
+Geracao: 2499 MelhorSolucao: 1490935
+Geracao: 2599 MelhorSolucao: 1452610
+Geracao: 2699 MelhorSolucao: 1402705
+Geracao: 2799 MelhorSolucao: 1358160
+Geracao: 2899 MelhorSolucao: 1326095

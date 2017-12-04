@@ -7,6 +7,7 @@ package Leitura;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -15,7 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import model.CidadeCT;
 import model.Funcoes;
 import model.Pessoa;
-import model.Restricao;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,10 +29,12 @@ import org.xml.sax.SAXException;
  */
 public class Importacao {
     
+    public static String nomeInstancia;
+    
     public static ArrayList<Pessoa> listaPessoas = Importacao.lerXMLPessoas();
-    public static ArrayList<CidadeCT> listaCidades = Importacao.lerXMLCidades();
+    public static ArrayList<CidadeCT> listaCidadesTodas = Importacao.lerXMLCidadesTodas();
+    public static ArrayList<CidadeCT> listaCidadesCT = Importacao.lerXMLCidadesCT();
     public static float[][] distancias = Importacao.lerXMLDistancias();
-    //public static ArrayList<Restricao> listaRestricoes = Importacao.restricoes();
     
     public static ArrayList lerXMLPessoas() {
 
@@ -39,22 +42,27 @@ public class Importacao {
             //objetos para construir e fazer a leitura do documento
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse("baseXML.xml");
+            Document doc;
+            
+            System.out.println("Digite o nome da instancia: ");
+            Scanner scan = new Scanner(System.in);
+            nomeInstancia = scan.next();
+            doc = builder.parse( nomeInstancia + ".xml");
 
             //cria uma lista de pessoas. Busca no documento todas as tag pessoa
             NodeList listaDePessoas = doc.getElementsByTagName("record");
 
             //pego o tamanho da lista de pessoas
             int tamanhoLista = listaDePessoas.getLength();
+            
 
             ArrayList<Pessoa> listaPessoa = new ArrayList();
 
             //Pessoa nova;
             String nome = "", area = "", subArea = "", cargoAtual = "", municipio = "", estado = "";
-            String id = "", municipioId = "", estadoId = "", nivel = "";
+            int id = 0, municipioId = 0, estadoId = 0, nivel = 0;
             //varredura na lista de pessoas
-            for (int i = 0; i < tamanhoLista; i++) {
-
+            for (int i = 0; i <  tamanhoLista; i++) {
                 //pego cada item (pessoa) como um nó (node)
                 Node noPessoa = listaDePessoas.item(i);
 
@@ -85,7 +93,7 @@ public class Importacao {
                             //verifico em qual filho estamos pela tag
                             switch (elementoFilho.getTagName()) {
                                 case "id":
-                                    id = elementoFilho.getTextContent();
+                                    id = Integer.parseInt(elementoFilho.getTextContent());
                                     break;
                                 case "nome":
                                     nome = elementoFilho.getTextContent();
@@ -103,16 +111,16 @@ public class Importacao {
                                     municipio = elementoFilho.getTextContent();
                                     break;
                                 case "municipioId":
-                                    municipioId = elementoFilho.getTextContent();
+                                    municipioId = Integer.parseInt(elementoFilho.getTextContent());
                                     break;
                                 case "estado":
                                     estado = elementoFilho.getTextContent();
                                     break;
                                 case "estadoId":
-                                    estadoId = elementoFilho.getTextContent();
+                                    estadoId = Integer.parseInt(elementoFilho.getTextContent());
                                     break;
                                 case "nivel":
-                                    nivel = elementoFilho.getTextContent();
+                                    nivel = Integer.parseInt(elementoFilho.getTextContent());
                                     break;
                             }
                         }
@@ -123,23 +131,19 @@ public class Importacao {
             }
             return listaPessoa;
 
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public static ArrayList lerXMLCidades() {
+    public static ArrayList lerXMLCidadesTodas() {
 
         try {
             //objetos para construir e fazer a leitura do documento
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse("cidadeCT.xml");
+            Document doc = builder.parse("cidadesNovas.xml");
 
             NodeList listaDeCidades = doc.getElementsByTagName("record");
             int tamanhoLista = listaDeCidades.getLength();
@@ -200,11 +204,81 @@ public class Importacao {
             }
             return listaCidades;
 
-        } catch (ParserConfigurationException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        }
+        return null;
+    }
+    
+    public static ArrayList lerXMLCidadesCT() {
+
+        try {
+            //objetos para construir e fazer a leitura do documento
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse("cidadeCT.xml");
+
+            NodeList listaDeCidades = doc.getElementsByTagName("record");
+            int tamanhoLista = listaDeCidades.getLength();
+
+            ArrayList<CidadeCT> listaCidadesCTlocal;
+            listaCidadesCTlocal = new ArrayList();
+
+            //Cidade nova;
+            String id = "", nome = "", custo = "";
+
+            //varredura na lista de pessoas
+            for (int i = 0; i < tamanhoLista; i++) {
+
+                //pego cada item (pessoa) como um nó (node)
+                Node noPessoa = listaDeCidades.item(i);
+
+                //verifica se o noPessoa é do tipo element (e não do tipo texto etc)
+                if (noPessoa.getNodeType() == Node.ELEMENT_NODE) {
+
+                    //caso seja um element, converto o no Pessoa em Element pessoa
+                    Element elementoPessoa = (Element) noPessoa;
+
+                    //recupero os nos filhos do elemento pessoa (nome, idade e peso)
+                    NodeList listaDeFilhosDaPessoa = elementoPessoa.getChildNodes();
+
+                    //pego o tamanho da lista de filhos do elemento pessoa
+                    int tamanhoListaFilhos = listaDeFilhosDaPessoa.getLength();
+
+                    //varredura na lista de filhos do elemento pessoa
+                    for (int j = 0; j < tamanhoListaFilhos; j++) {
+
+                        //crio um no com o cada tag filho dentro do no pessoa (tag nome, idade e peso)
+                        Node noFilho = listaDeFilhosDaPessoa.item(j);
+
+                        //verifico se são tipo element
+                        if (noFilho.getNodeType() == Node.ELEMENT_NODE) {
+
+                            //converto o no filho em element filho
+                            Element elementoFilho = (Element) noFilho;
+
+                            //verifico em qual filho estamos pela tag
+                            switch (elementoFilho.getTagName()) {
+                                case "id":
+                                    id = elementoFilho.getTextContent();
+                                    break;
+                                case "nome":
+                                    nome = elementoFilho.getTextContent();
+                                    break;
+                                case "custo":
+                                    custo = elementoFilho.getTextContent();
+                                    break;
+
+                            }
+                        }
+                    }
+                    listaCidadesCTlocal.add(new CidadeCT(id, nome, custo));
+
+                }
+            }
+            return listaCidadesCTlocal;
+
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -212,22 +286,22 @@ public class Importacao {
 
     public static float[][] lerXMLDistancias(){
         float[][] matrizDistancias;
-        matrizDistancias = new float[797][52];
+        matrizDistancias = new float[listaCidadesTodas.size()][listaCidadesCT.size()];
         
         try {
             //objetos para construir e fazer a leitura do documento
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse("distanciasCts.xml");
+            Document doc = builder.parse("distanciasNovas.xml");
 
-            NodeList listaDeCidades = doc.getElementsByTagName("distanciasCts");
+            NodeList listaDeCidades = doc.getElementsByTagName("distancias-cts");
             int tamanhoLista = listaDeCidades.getLength();
             
         
             
             int k =0,t=0;
             //varredura na lista de pessoas
-            for (int i = 0; i < tamanhoLista; i++) {
+            for (int i = 0; i < 5565; i++) {
                 
                 //pego cada item (pessoa) como um nó (node)
                 Node noPessoa = listaDeCidades.item(i);
@@ -256,8 +330,10 @@ public class Importacao {
                             //converto o no filho em element filho
                             Element elementoFilho = (Element) noFilho;
                                 
+                                //System.out.println("K : " + k + "  T : " + t);
+                                
                                 matrizDistancias[k][t] = Float.parseFloat(elementoFilho.getFirstChild().getTextContent());
-                                if(t==51){
+                                if(t==listaCidadesCT.size()-1){
                                     k++;
                                     t=0;
                                 }else{
@@ -268,22 +344,81 @@ public class Importacao {
                 }
             }
 
+            return matrizDistancias;
             
-            
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return matrizDistancias;
         
         }
     
-//    public static ArrayList restricoes(){
-//        for(int i = 0; i< listaPessoas.size();i++){
+//        public static float[][] lerXMLDistancias2(){
+//        float[][] matrizDistancias;
+//        matrizDistancias = new float[796][listaCidadesCT.size()];
+//        
+//        try {
+//            //objetos para construir e fazer a leitura do documento
+//            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder builder = factory.newDocumentBuilder();
+//            Document doc = builder.parse("distanciasCts.xml");
+//
+//            NodeList listaDeCidades = doc.getElementsByTagName("distanciasCts");
+//            int tamanhoLista = listaDeCidades.getLength();
 //            
+//        
+//            
+//            int k =0,t=0;
+//            //varredura na lista de pessoas
+//            for (int i = 0; i < tamanhoLista; i++) {
+//                
+//                //pego cada item (pessoa) como um nó (node)
+//                Node noPessoa = listaDeCidades.item(i);
+//
+//                //verifica se o noPessoa é do tipo element (e não do tipo texto etc)
+//                if (noPessoa.getNodeType() == Node.ELEMENT_NODE) {
+//
+//                    //caso seja um element, converto o no Pessoa em Element pessoa
+//                    Element elementoPessoa = (Element) noPessoa;
+//
+//                    //recupero os nos filhos do elemento pessoa (nome, idade e peso)
+//                    NodeList listaDeFilhosDaPessoa = elementoPessoa.getChildNodes();
+//
+//                    //pego o tamanho da lista de filhos do elemento pessoa
+//                    int tamanhoListaFilhos = listaDeFilhosDaPessoa.getLength();
+//                    //System.out.println(listaDeFilhosDaPessoa.getLength());
+//                    //varredura na lista de filhos do elemento pessoa
+//                    for (int j = 0; j < tamanhoListaFilhos; j++) {
+//
+//                        //crio um no com o cada tag filho dentro do no pessoa (tag nome, idade e peso)
+//                        Node noFilho = listaDeFilhosDaPessoa.item(j);
+//                        
+//                        //verifico se são tipo element
+//                        if (noFilho.getNodeType() == Node.ELEMENT_NODE) {
+//
+//                            //converto o no filho em element filho
+//                            Element elementoFilho = (Element) noFilho;
+//                                
+//                                matrizDistancias[k][t] = Float.parseFloat(elementoFilho.getFirstChild().getTextContent());
+//                                if(t==51){
+//                                    k++;
+//                                    t=0;
+//                                }else{
+//                                    t++;
+//                                }           
+//                        }
+//                    }
+//                }
+//            }
+//
+//            
+//            
+//        } catch (ParserConfigurationException | SAXException | IOException ex) {
+//            Logger.getLogger(Funcoes.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-//    }
+//        return matrizDistancias;
+//        
+//        }
+    
+    
 }

@@ -7,10 +7,10 @@ package Genetico;
 
 import java.util.ArrayList;
 import java.util.Random;
-import model.Pessoa;
+
 import static Leitura.Importacao.listaPessoas;
-import static Leitura.Importacao.listaCidades;
-import model.Solucao;
+import static Leitura.Importacao.listaCidadesCT;
+
 
 /**
  *
@@ -22,8 +22,8 @@ public class Cromossomo {
         Random num = new Random();
         
         ArrayList<Object> resposta = new ArrayList();
-        for(int x=0;x<listaPessoas.size();x++){
-            resposta.add(num.nextInt(52));
+        for(int x=0; x < listaPessoas.size();x++){
+            resposta.add(num.nextInt(listaCidadesCT.size()));
         }
         return resposta;
     }

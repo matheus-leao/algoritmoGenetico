@@ -5,7 +5,7 @@
  */
 package Genetico;
 
-import java.util.ArrayList;
+
 import model.Solucao;
 
 /**

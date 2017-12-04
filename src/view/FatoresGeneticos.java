@@ -14,6 +14,7 @@ public class FatoresGeneticos {
     public static long horaFim;
     
     public static int tamEspacoPopulacaoInicial = 100;
-    public static int nGeracoesMax = 1000;
+    public static int nGeracoesMax = 100000;
+    public static int repeticoesSemMelhoria = 2000;
     
 }

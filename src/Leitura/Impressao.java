@@ -5,20 +5,16 @@
  */
 package Leitura;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.Time;
+
 import java.util.ArrayList;
+import java.util.Date;
 import model.CidadeCT;
 import model.Pessoa;
-import model.Restricao;
 import model.Solucao;
+import static view.FatoresGeneticos.horaFim;
+import static view.FatoresGeneticos.horaInicio;
 import static view.FatoresGeneticos.nGeracoesMax;
 import static view.FatoresGeneticos.tamEspacoPopulacaoInicial;
-import static view.FatoresGeneticos.horaInicio;
-import static view.FatoresGeneticos.horaFim;
 /**
  *
  * @author Math
@@ -56,35 +52,28 @@ public class Impressao {
         }
     }
     
-    public static void imprimirRestricoes(ArrayList<Restricao> listaRestricoes) {
-        for (int i = 1; i <= listaRestricoes.size(); i++) {
-            System.out.println("Nome = " + listaRestricoes.get(i).getNome() + " Quantidade: " + listaRestricoes.get(i).getCont());
-        }
-    }
 
-//    public static File criaArqTexto(String nomeArquivo){
-//        
-//        return arq;
-//    }
+    public static String criaNomeArquivo(){
+        horaInicio = System.currentTimeMillis();
+        Date dataInicio;
+        dataInicio = new Date(horaInicio);
+        System.out.println();
+        String nomeArquivo = "Teste"  + dataInicio.getDay() + dataInicio.getDate();
+        return nomeArquivo;
+    }
     
-//    public static void cabecalhoArqTexto(File arq) throws IOException{
-//        BufferedWriter writer = new BufferedWriter(new FileWriter(arq));
-//        horaInicio = System.currentTimeMillis();
-//        String cabecalho = "";
-//        cabecalho = "Geracoes: " + nGeracoesMax + "\n";
-//        cabecalho += "Tamanho populacao" + tamEspacoPopulacaoInicial + "\n";
-//        cabecalho += "Hora de inicio: " + horaInicio + "\n";
-//        
-//        //FileWriter escrever = new FileWriter(arq);
-//        
-//        writer.newLine();
-//        writer.write(cabecalho);
-//        
-//    }
+    public static String cabecalhoArqTexto(){
+        String cabecalho = "";
+        cabecalho = "Geracoes: " + nGeracoesMax + "\n";
+        cabecalho += "Tamanho populacao" + tamEspacoPopulacaoInicial + "\n";
+        cabecalho += "Hora de inicio: " + horaInicio + "\n";
+        return cabecalho;
+    }
     
-    public static void rodapeArqTexto(){
+    public static String rodapeArqTexto(){
         String rodape = "";
         horaFim = System.currentTimeMillis();
         rodape = "Horario de termino: " + horaFim + "\n";
+        return rodape;
     }
 }
